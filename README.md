@@ -1,4 +1,4 @@
-#🧁 Projet Cheffe Muffin
+# Projet Cheffe Muffin
 
 Bienvenue ! Ce projet est une application d'IA (RAG) capable de discuter avec vous pour trouver la recette de muffin parfaite dans son grimoire de recettes scrapées sur Marmiton.
 
@@ -9,7 +9,7 @@ Suivez ces étapes dans l'ordre pour lancer l'application sur votre ordinateur :
 1. Ouvrir le terminal et récupérer le dossier du projet :
 
 ```bash
-git clone [https://github.com/clemencejung/rag_a_muffin.git]
+git clone [https://github.com/clemencejung/rag_a_muffin.git](https://github.com/clemencejung/rag_a_muffin.git)
 cd rag_a_muffin
 ```
 
