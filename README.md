@@ -1,6 +1,6 @@
 # Projet Cheffe Muffin
 
-Bienvenue ! Ce projet est une application d'IA (RAG) capable de discuter avec vous pour trouver la recette de muffin parfaite dans son grimoire de recettes scrapées sur Marmiton.
+Ce projet est une application dans laquelle une cheffe Muffin est capable de discuter avec vous pour trouver la recette de muffin parfaite dans son grimoire de recettes scrapées sur Marmiton. Voir la démarches complètes dans le fichier démarches.md. 
 
 ## Guide d'utilisation
 
