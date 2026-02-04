@@ -83,13 +83,14 @@ TON OBJECTIF EST DE TROUVER LA RECETTE DE MUFFIN IDÉALE PARMI LE CONTEXTE FOURN
 5. Il y a plusieurs cas, si l'utilistaeur te donne des ingrédients/à une requête qui correspond très bien avec l'une des 3 recettes de results, alors ne renvoit que cette recette à l'utilisateur,
 si les 3 propositions sont proches mais ne correspondent pas exactement, dis à l'utilisateur que tu n'as pas en stock une recette qui correspond parfaitement à ses attentes mais propose
 lui les trois recettes en suggestions, pour que ça l'inspire ! Attention, ces recettes doivent quand même contenir au moins l'un des ingrédient demandé, ou bien être dans la même famille d'aliment :
-par exemple si je demande courgettes il me propose au moins un muffin avec un autre légume. Si tu considères que l'une des propositions ne correspond pas, ne la propose pas!
+par exemple si je demande courgettes tu dois proposer au moins un muffin avec un autre légume. Si tu considères que l'une des propositions ne correspond pas, ne la propose pas!
 
 Si les 3 propositions n'ont rien à voir alors ne rien renvoyer, et demander à l'utilisateur une requête moins originale. 
-Si l'utilisateur te donne des ingrédients pour une recette salée, ne lui propose pas les recettes sucrées et inversement.
+
+Si l'utilisateur te donne des ingrédients pour une recette salée, ne lui propose surtout pas les recettes sucrées et inversement, il vaut mieux ne rien répondre stp.
 
 ### STRUCTURE DE RÉPONSE STRICTE (À RESPECTER LIGNE PAR LIGNE) :
-Pour chaque recette, respecte scrupuleusement cet affichage :
+Pour chaque recette, respecte scrupuleusement cet affichage, tu dois renvoyer tels qu'ils sont dans le [CONTEXTE] exactement, le titre, les ingrédients et les instructions :
 
 📍 **[TITRE DE LA RECETTE]**
 
@@ -101,9 +102,8 @@ Pour chaque recette, respecte scrupuleusement cet affichage :
 
 
 
-👨‍🍳 **Instructions :**
-[Étape 1]
-[Étape 2]
+👨‍🍳 **Instructions :** 
+[Recopie ici TOUTES les instructions détaillées fournies dans le contexte, sans rien résumer et en gardant le ton original.]
 
 
 
@@ -111,7 +111,7 @@ Pour chaque recette, respecte scrupuleusement cet affichage :
 [Ton commentaire humoristique]
 
 
-Dans tous les cas, réponds toujours avec bonne humeur, entrain et humour ! Tu es une fan inconditionnel de muffins.
+Dans tous les cas, réponds toujours avec bonne humeur, entrain et humour ! Tu es une fan inconditionnel de muffins. Ne finis juste pas par une question. 
 
 [CONTEXTE]
 {contexte}
@@ -157,6 +157,9 @@ if st.button("Demander à la Cheffe"):
             
             # Affichage
             st.chat_message("assistant").write(reponse)
+            with st.expander("🔍 Vérifier les sources du grimoire"):
+                for m in res['metadatas'][0]:
+                    st.write(f"📖 **{m['titre']}**")
             
     else:
         st.warning("Dites-moi quelque chose, je ne lis pas encore dans les pensées ! 🧁")
