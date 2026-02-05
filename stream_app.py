@@ -70,6 +70,8 @@ def generer_reponse_chef(query, results, api_key):
         INGRÉDIENTS : {m.get('ingredients', 'Non listés')}
         INSTRUCTIONS : {m.get('instructions', 'Non précisées')}
         DESCRIPTION : {m.get('description', '')}
+        URL : {m['url']}
+
         """
     # Instructions pour mon prompt
     prompt = f"""TU ES UNE CHEFFE MUFFIN, UNE ASSISTANTE CULINAIRE OBSESSIONNELLE MAIS SYMPATHIQUE.
@@ -80,12 +82,12 @@ TON OBJECTIF EST DE TROUVER LA RECETTE DE MUFFIN IDÉALE PARMI LE CONTEXTE FOURN
 2. ANCRAGE : Utilise UNIQUEMENT les recettes fournies dans le bloc [CONTEXTE]. N'invente rien.
 3. LANGUE : Réponds toujours en français courant.
 4. CORRECTION : si l'utilisateur te demande de cuisiner avec des choses qui ne sont pas des aliments, réponds lui avec humour que tu n'es pas mécanicien, ou magicien etc... 
-5. Il y a plusieurs cas, si l'utilistaeur te donne des ingrédients/à une requête qui correspond très bien avec l'une des 3 recettes de results, alors ne renvoit que cette recette à l'utilisateur,
-si les 3 propositions sont proches mais ne correspondent pas exactement, dis à l'utilisateur que tu n'as pas en stock une recette qui correspond parfaitement à ses attentes mais propose
-lui les trois recettes en suggestions, pour que ça l'inspire ! Attention, ces recettes doivent quand même contenir au moins l'un des ingrédient demandé, ou bien être dans la même famille d'aliment :
+5. Il y a plusieurs cas, si l'utilistaeur te donne des ingrédients/à une requête qui correspond très bien avec l'une des 5 recettes de results, alors ne renvoit que cette recette à l'utilisateur,
+si les 5 propositions sont proches mais ne correspondent pas exactement, dis à l'utilisateur que tu n'as pas en stock une recette qui correspond parfaitement à ses attentes mais propose
+lui les trois recettes en les plus proches selon toi, pour que ça l'inspire ! Attention, ces recettes doivent quand même contenir au moins l'un des ingrédient demandé, ou bien être dans la même famille d'aliment :
 par exemple si je demande courgettes tu dois proposer au moins un muffin avec un autre légume. Si tu considères que l'une des propositions ne correspond pas, ne la propose pas!
 
-Si les 3 propositions n'ont rien à voir alors ne rien renvoyer, et demander à l'utilisateur une requête moins originale. 
+Si les 5 propositions n'ont rien à voir alors ne rien renvoyer, et demander à l'utilisateur une requête moins originale. 
 
 Si l'utilisateur te donne des ingrédients pour une recette salée, ne lui propose surtout pas les recettes sucrées et inversement, il vaut mieux ne rien répondre stp.
 
@@ -105,7 +107,8 @@ Pour chaque recette, respecte scrupuleusement cet affichage, tu dois renvoyer te
 👨‍🍳 **Instructions :** 
 [Recopie ici TOUTES les instructions détaillées fournies dans le contexte, sans rien résumer et en gardant le ton original.]
 
-
+🔗 **Lien de la recette :**
+[URL]
 
 ✨ *Le mot de la Cheffe :*
 [Ton commentaire humoristique]
@@ -150,7 +153,7 @@ if st.button("Demander à la Cheffe"):
         with st.spinner("Recherche de la meilleure recette dans mon grimoire..."):
             # Recherche vectorielle
             query_vector = model_embed.encode([query], normalize_embeddings=True).tolist()
-            res = collection.query(query_embeddings=query_vector, n_results=3)
+            res = collection.query(query_embeddings=query_vector, n_results=5)
             
             # Appel à l'IA
             reponse = generer_reponse_chef(query, res, user_api_key)
